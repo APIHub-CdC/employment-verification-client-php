@@ -1,0 +1,8 @@
+<?php
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
+
+class Accept {
+
+    public const YES   = "Y";
+    public const NO    = "N";
+}
