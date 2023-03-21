@@ -1,0 +1,150 @@
+<?php
+
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
+
+use \ArrayAccess;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
+
+class FailureEVConsumption implements ModelInterface, ArrayAccess
+{
+    const DISCRIMINATOR = null;
+    
+    protected static $RCCPMModelName = 'FailureEVConsumption';
+    
+    protected static $RCCPMTypes = [
+        'request' => 'CirculoDeCredito\EmploymentVerification\Client\Model\EmploymentVerification',
+        'errors' => 'CirculoDeCredito\EmploymentVerification\Client\Model\Error[]'
+    ];
+    
+    protected static $RCCPMFormats = [
+        'request' => null,
+        'errors' => null
+    ];
+    
+    public static function RCCPMTypes()
+    {
+        return self::$RCCPMTypes;
+    }
+    
+    public static function RCCPMFormats()
+    {
+        return self::$RCCPMFormats;
+    }
+    
+    protected static $attributeMap = [
+        'request' => 'request',
+        'errors' => 'errors'
+    ];
+    
+    protected static $setters = [
+        'request' => 'setRequest',
+        'errors' => 'setErrors'
+    ];
+    
+    protected static $getters = [
+        'request' => 'getRequest',
+        'errors' => 'getErrors'
+    ];
+    
+    public static function attributeMap()
+    {
+        return self::$attributeMap;
+    }
+    
+    public static function setters()
+    {
+        return self::$setters;
+    }
+    
+    public static function getters()
+    {
+        return self::$getters;
+    }
+    
+    public function getModelName()
+    {
+        return self::$RCCPMModelName;
+    }
+    
+    
+    
+    protected $container = [];
+    
+    public function __construct(array $data = null)
+    {
+        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
+        $this->container['errors'] = isset($data['errors']) ? $data['errors'] : null;
+    }
+    
+    public function listInvalidProperties()
+    {
+        $invalidProperties = [];
+        return $invalidProperties;
+    }
+    
+    public function valid()
+    {
+        return count($this->listInvalidProperties()) === 0;
+    }
+    
+    public function getRequest()
+    {
+        return $this->container['request'];
+    }
+    
+    public function setRequest($request)
+    {
+        $this->container['request'] = $request;
+        return $this;
+    }
+    
+    public function getErrors()
+    {
+        return $this->container['errors'];
+    }
+    
+    public function setErrors($errors)
+    {
+        $this->container['errors'] = $errors;
+        return $this;
+    }
+    
+    #[\ReturnTypeWillChange]
+    public function offsetExists($offset)
+    {
+        return isset($this->container[$offset]);
+    }
+    
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset)
+    {
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
+    }
+    
+    #[\ReturnTypeWillChange]
+    public function offsetSet($offset, $value)
+    {
+        if (is_null($offset)) {
+            $this->container[] = $value;
+        } else {
+            $this->container[$offset] = $value;
+        }
+    }
+    
+    #[\ReturnTypeWillChange]
+    public function offsetUnset($offset)
+    {
+        unset($this->container[$offset]);
+    }
+    
+    public function __toString()
+    {
+        if (defined('JSON_PRETTY_PRINT')) {
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+}
